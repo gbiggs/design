@@ -34,9 +34,9 @@ When a new participant starts up, it broadcasts its presence using UDP multicast
 
 - The use of multicast can degrade or outright fail in situations of lossy networks, particularly on Wi-Fi networks.
 - Wi-Fi networks that use managed access points often interfere with the type of network traffic used by DDS to do discovery, leading to ROS nodes not being aware of each others' presence and incompletely-connected ROS graphs.
-- ROS graphs are relatively sparse, with a relatively low number of connections between each node (each ROS node is equal to a DDS participant in Foxy; prior to Foxy each node would have one DDS participant for every topic it used).
+- ROS graphs are relatively sparse, with a relatively low number of connections between each node (each process containing ROS nodes is equal to a DDS participant in Foxy; prior to Foxy each node would have one DDS participant).
   DDS was designed for applications with a relatively small number of participants and where each participant is densely connected to all other participants.
-  When a ROS graph gets large (even just twenty nodes), and with each node being involved in ten topics _by default_ for the ROS infrastructure (before even counting application topics), the discovery traffic caused by the sudden startup of all these DDS participants at once during system startup can generate enough discovery traffic to bring down a Wi-Fi network.
+  When a ROS graph of individually-launched nodes gets large (even just twenty nodes), and with each node being involved in ten topics _by default_ for the ROS infrastructure (before even counting application topics), the discovery traffic caused by the sudden startup of all these DDS participants at once during system startup can generate enough discovery traffic to bring down a Wi-Fi network.
 - Even when discovery works correctly, it can be slow, leading to a slow system startup or tools that take time to launch.
   ROS includes countermeasures for this, such as a locally-running daemon to collect discovery information so that nodes and tools can bypass the usual DDS discovery mechanism and rapidly get a complete picture of the ROS graph.
 
